@@ -14,19 +14,24 @@ class MetricAnalyzer {
   async connect() {
     try {
       console.log(`Connecting Metric Analyzer [${this.metric}]...`);
+      // 1. Connect to RabbitMQ
       this.connection = await amqp.connect(config.rabbitmq.url);
+      // 2. Create channel  
       this.channel = await this.connection.createChannel();
-
+    
+      // 3. Ensure exchange exists
       await this.channel.assertExchange(
         config.rabbitmq.exchange.name,
         config.rabbitmq.exchange.type,
         config.rabbitmq.exchange.options
       );
 
+      // 4. Create queue
       await this.channel.assertQueue(this.queueName, {
         durable: true
       });
 
+      // Bind queue to exchange with pattern
       await this.channel.bindQueue(
         this.queueName,
         config.rabbitmq.exchange.name,

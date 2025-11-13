@@ -91,7 +91,7 @@ class IoTSimulator {
     setInterval(() => {
       // Pick random region
       const regions = Object.keys(topicConfig.locations);
-      const region = regions[Math.floor(Math.random() * regions.length)];
+      const region = regions[Math.floor(Math.random() * regions.length)]; // usa, europe, asia
 
       // Pick random location within region
       const locations = topicConfig.locations[region];

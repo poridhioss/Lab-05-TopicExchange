@@ -14,17 +14,19 @@ class RegionalProcessor {
   async connect() {
     try {
       console.log(`Connecting Regional Processor [${this.region}]...`);
+      // 1. Connect to RabbitMQ
       this.connection = await amqp.connect(config.rabbitmq.url);
+      // 2. Create channel  
       this.channel = await this.connection.createChannel();
 
-      // Ensure exchange exists
+      // 3. Ensure exchange exists
       await this.channel.assertExchange(
         config.rabbitmq.exchange.name,
         config.rabbitmq.exchange.type,
         config.rabbitmq.exchange.options
       );
 
-      // Create queue
+      // 4. Create queue
       await this.channel.assertQueue(this.queueName, {
         durable: true
       });
