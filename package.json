@@ -1,0 +1,16 @@
+{
+  "name": "lab5-topic-exchange",
+  "version": "1.0.0",
+  "description": "RabbitMQ Topic Exchange - IoT Message Router",
+  "main": "iot-simulator.js",
+  "scripts": {
+    "simulator": "node iot-simulator.js",
+    "regional": "node regional-processor.js",
+    "metric": "node metric-analyzer.js",
+    "alert": "node alert-monitor.js",
+    "admin": "node admin-monitor.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  }
+}
